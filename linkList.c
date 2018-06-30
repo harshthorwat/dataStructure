@@ -4,6 +4,7 @@ struct Head* createList();
 struct Head* insert(struct Head*,int);
 struct Head* delet(struct Head*);
 int traversal(struct Head*);
+struct node* search(struct Head*);
 
 typedef struct node{
 int data;
@@ -133,6 +134,33 @@ h->count--;
 return h;
 }
 
+struct node* search(struct Head* head){
+    if (!head->first)
+    {
+        printf("Can not search from empty list\n");
+        return 0;
+    }
+    node* tmp=(node*)malloc(sizeof(node));
+    if (!tmp)
+    {
+        printf("Memory Error\n");
+        return 0;
+    }
+    int d;
+    printf("Enter data to be searched\n");
+    scanf("%d",&d);
+    tmp=head->first;
+    while(tmp){
+        if (tmp->data==d)
+        {
+            printf("Data found %d\n",tmp->data);
+            return tmp;
+        }
+        tmp=tmp->next;
+    }
+    printf("Data not found\n");
+}
+
 int main(){
 h* head=(h*)malloc(sizeof(h));
 if(!head){
@@ -143,7 +171,7 @@ head=createList();
 while(1){
 int choice;
 printf("*******************************************\n");
-printf("Enter 1 to insert.\nEnter 2 to Traverse.\nEnter 3 for count.\nEnter 4 to delete.\nEnter 5 to exit.\n");
+printf("Enter 1 to insert.\nEnter 2 to Traverse.\nEnter 3 for count.\nEnter 4 to delete.\nEnter 5 to search.\nEnter 6 to exit.\n");
 scanf("%d",&choice);
 switch(choice){
 case 1:
@@ -160,7 +188,8 @@ case 3:
     printf("Count is %d\n",head->count); break;
 case 4:
     delet(head); break;
-case 5:
+case 5: search(head); break;
+case 6:
     return 0;
 default:printf("You have entered wrong choice\n");
 }
