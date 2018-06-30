@@ -5,6 +5,7 @@ struct Head* push(struct Head*);
 struct Head* pop(struct Head*);
 int traversal(struct Head*);
 struct Node* stackTop(struct Head*);
+struct Node* search(struct Head*);
 
 typedef struct Node
 {
@@ -96,6 +97,33 @@ struct Node* stackTop(struct Head* head){
 	return head->top;
 }
 
+struct Node* search(struct Head* h){
+	if (!h->top)
+	{
+		printf("Can not search from empty stack\n");
+		return 0;
+	}
+	node* n=(node*)malloc(sizeof(node));
+	if (!n)
+	{
+		printf("Memory Error\n");
+		return 0;
+	}
+	int d;
+	printf("Enter data to be searched\n");
+	scanf("%d",&d);
+	n=h->top;
+	while(n){
+		if (n->data==d)
+		{
+			printf("Data found %d\n",n->data);
+			return n;
+		}
+		n=n->next;
+	}
+	printf("Data not Found\n");
+}
+
 int main(){
 h* head=(h*)malloc(sizeof(h));
 if (!head)
@@ -107,7 +135,7 @@ head=createstack();
 while(1){
 int choice;
 printf("**********************************************\n");
-printf("Enter 1 to push.\nEnter 2 to pop.\nEnter 3 to traversal.\nEnter 4 to stack top\nEnter 5 to count.\nEnter 6 to Exit\n");
+printf("Enter 1 to push.\nEnter 2 to pop.\nEnter 3 to traversal.\nEnter 4 to stack top\nEnter 5 to count.\nEnter 6 to search\nEnter 7 to Exit\n");
 scanf("%d",&choice);
 switch(choice){
 case 1: head=push(head); break;
@@ -115,7 +143,8 @@ case 2: head=pop(head); break;
 case 3: traversal(head); break;
 case 4: stackTop(head); break;
 case 5: printf("Count is %d\n",head->count); break;
-case 6: return 0; break;
+case 6: search(head); break;
+case 7: return 0; break;
 default: printf("You have Entered wrong choice\n");
 }
 }
